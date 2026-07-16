@@ -1,65 +1,146 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import DestinationCard from "@/components/DestinationCard";
+import FeatureCard from "@/components/FeatureCard";
+import { motion } from "framer-motion";
+import Link from "next/link";
+
+const destinations = [
+  {
+    id: "1",
+    title: "DISNEY VACATIONS",
+    subtitle: "LAND & SEA",
+    image: "https://images.unsplash.com/photo-1597466599360-3b9775841aec?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8RElTTkVZJTIwVkFDQVRJT05TfGVufDB8fDB8fHww",
+    href: "/disney-vacations",
+  },
+  {
+    id: "2",
+    title: "FAMILY TRIPS",
+    subtitle: "MEMORABLE ADVENTURES",
+    image: "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=600&h=800&fit=crop",
+    href: "/family-trips",
+  },
+  {
+    id: "3",
+    title: "TEXAS ROAD TRIPS",
+    subtitle: "Partnership with East Texas Van Rentals",
+    image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&h=800&fit=crop",
+    href: "/texas-road-trips",
+  },
+  {
+    id: "4",
+    title: "OTHER DESTINATIONS",
+    subtitle: "EXPLORE THE WORLD",
+    image: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=600&h=800&fit=crop",
+    href: "/other-destinations",
+  },
+];
+
+const features = [
+  {
+    id: "1",
+    icon: "compass",
+    title: "Expert Guidance",
+    description: "Years of experience and first-hand destination knowledge.",
+  },
+  {
+    id: "2",
+    icon: "heart",
+    title: "Personalized Trips",
+    description: "Every trip is customized to match your style, needs, and budget.",
+  },
+  {
+    id: "3",
+    icon: "clock",
+    title: "Save Time & Stress",
+    description: "We handle the details so you can focus on making memories.",
+  },
+  {
+    id: "4",
+    icon: "dollar",
+    title: "Best Value",
+    description: "Top recommendations and insider tips to get the best value.",
+  },
+  {
+    id: "5",
+    icon: "headphones",
+    title: "Ongoing Support",
+    description: "We're with you every step of the way—before, during, and after your trip.",
+  },
+];
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <div className="min-h-screen bg-brand-cream">
+      <Navbar />
+      
+      <main>
+        {/* Hero Section */}
+        <section className="relative bg-gradient-to-b from-[#F5F0EB] via-[#FAF8F5] to-white py-12 md:py-16">
+          {/* Subtle mountain/landscape background decoration */}
+          <div className="absolute inset-0 overflow-hidden opacity-30">
+            <svg className="absolute bottom-0 w-full h-32" viewBox="0 0 1440 120" preserveAspectRatio="none">
+              <path d="M0,80 Q360,20 720,60 T1440,40 L1440,120 L0,120Z" fill="#E8F4F4"/>
+              <path d="M0,100 Q480,40 960,80 T1440,60 L1440,120 L0,120Z" fill="#D4E8E8" opacity="0.5"/>
+            </svg>
+          </div>
+          
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-10"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              <p className="text-sm font-medium tracking-[0.2em] uppercase text-brand-gold mb-3">
+                TRAVEL WITH US
+              </p>
+              <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-brand-dark tracking-wide">
+                PLAN YOUR PERFECT TRIP
+              </h1>
+            </motion.div>
+
+            {/* Destination Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {destinations.map((dest, index) => (
+                <DestinationCard key={dest.id} {...dest} index={index} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Why Travel With Us */}
+        <section className="py-16 md:py-20 bg-white relative">
+          <div className="absolute inset-0 opacity-10">
+            <svg className="absolute top-0 w-full h-20" viewBox="0 0 1440 80" preserveAspectRatio="none">
+              <path d="M0,40 Q360,0 720,30 T1440,20 L1440,0 L0,0Z" fill="#2D6B6B"/>
+            </svg>
+          </div>
+          
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
             >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+              <p className="text-sm font-medium tracking-[0.2em] uppercase text-brand-gold mb-2">
+                WHY TRAVEL WITH US
+              </p>
+            </motion.div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+              {features.map((feature, index) => (
+                <FeatureCard key={feature.id} {...feature} index={index} />
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
+
+      <Footer />
     </div>
   );
 }
